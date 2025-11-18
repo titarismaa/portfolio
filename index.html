@@ -35,21 +35,31 @@
     />
 
     <style>
+      :root {
+        --primary-600: #ec4899; /* pink-500-ish */
+      }
+
+      /* Navbar glass */
       .nav-blur {
         backdrop-filter: blur(10px);
-        background-color: rgba(255, 255, 255, 0.1);
+        background-color: rgba(255, 255, 255, 0.06);
       }
+
       .nav-scrolled {
-        background-color: rgba(255, 255, 255, 0.8) !important;
-        backdrop-filter: blur(15px);
-        color: #1e3a8a !important;
+        background-color: rgba(255, 255, 255, 0.88) !important;
+        color: #0f172a !important;
+        backdrop-filter: blur(12px);
       }
+
       .nav-scrolled a {
-        color: #1e3a8a !important;
+        color: #0f172a !important;
       }
+
+      /* Animated blob */
       .blob-shape {
         animation: morph 8s ease-in-out infinite;
       }
+
       @keyframes morph {
         0%,
         100% {
@@ -59,578 +69,586 @@
           border-radius: 30% 70% 40% 60% / 60% 40% 70% 30%;
         }
       }
+
+      /* Article card image fallback */
+      .article-thumb {
+        background-color: #e5e7eb;
+        min-height: 160px;
+      }
+
+      /* small helpers */
+      .glass {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(6px);
+      }
+
+      /* Make sure devicon icons are sized correctly in some places */
+      .devicon-large {
+        font-size: 2.25rem;
+      }
     </style>
   </head>
 
-  <body
-    class="bg-gradient-to-br from-indigo-900 via-slate-900 to-gray-900 text-white font-sans"
-  >
-    <!-- Navbar -->
-    <header
-      id="navbar"
-      class="fixed top-0 left-0 w-full z-50 transition duration-300 ease-in-out nav-blur text-white"
-    >
-      <div
-        class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center"
-      >
-        <!-- Logo -->
-        <div class="flex items-center space-x-3">
-          <img
-            src="images/foto_tita.jpg"
-            alt="Tita Rismawati"
-            class="w-10 h-10 rounded-full border-2 border-white shadow-lg"
-          />
-          <h1 class="text-lg md:text-xl font-bold">Tita Rismawati</h1>
+  <body class="bg-gradient-to-br from-indigo-900 via-slate-900 to-gray-900 text-white font-sans">
+    <!-- NAVBAR -->
+    <header id="navbar" class="fixed top-0 left-0 w-full z-50 transition duration-300 ease-in-out nav-blur">
+      <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-3">
+          <img src="images/foto_tita.jpg" alt="Tita Rismawati" class="w-10 h-10 rounded-full border-2 border-white shadow" />
+          <div>
+            <h1 class="text-lg md:text-xl font-bold">Tita Rismawati</h1>
+            <p class="text-xs text-white/60 -mt-1">Telecommunication Systems</p>
+          </div>
         </div>
 
-        <!-- Navigation -->
-        <nav class="hidden md:flex space-x-6 font-medium">
-          <a href="#profile" class="hover:text-pink-400 transition">Profile</a>
-          <a href="#experience" class="hover:text-pink-400 transition"
-            >Experience</a
-          >
-          <a href="#projects" class="hover:text-pink-400 transition"
-            >Projects</a
-          >
-          <a href="#skills" class="hover:text-pink-400 transition">Skills</a>
-          <a href="#certifications" class="hover:text-pink-400 transition"
-            >Certifications</a
-          >
-          <a href="#contact" class="hover:text-pink-400 transition">Contact</a>
+        <nav class="hidden md:flex items-center gap-6 font-medium">
+          <a href="#profile" class="hover:text-pink-300 transition">Profile</a>
+          <a href="#experience" class="hover:text-pink-300 transition">Experience</a>
+          <a href="#projects" class="hover:text-pink-300 transition">Projects</a>
+          <a href="#skills" class="hover:text-pink-300 transition">Skills</a>
+          <a href="#certifications" class="hover:text-pink-300 transition">Certifications</a>
+          <a href="#articles" class="hover:text-pink-300 transition">Articles</a>
+          <a href="#contact" class="hover:text-pink-300 transition">Contact</a>
         </nav>
+
+        <!-- mobile menu trigger -->
+        <div class="md:hidden">
+          <button id="mobileMenuBtn" aria-label="Open menu" class="p-2 rounded-md bg-white/5">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- mobile menu -->
+      <div id="mobileMenu" class="hidden md:hidden bg-white/5">
+        <div class="px-6 py-4 flex flex-col gap-3">
+          <a href="#profile" class="block py-2">Profile</a>
+          <a href="#experience" class="block py-2">Experience</a>
+          <a href="#projects" class="block py-2">Projects</a>
+          <a href="#skills" class="block py-2">Skills</a>
+          <a href="#certifications" class="block py-2">Certifications</a>
+          <a href="#articles" class="block py-2">Articles</a>
+          <a href="#contact" class="block py-2">Contact</a>
+        </div>
       </div>
     </header>
 
-    <!-- Profile Section -->
-    <section
-      id="profile"
-      class="pt-32 pb-16 px-6 max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12"
-    >
-      <!-- Text Info -->
-      <div
-        class="flex-1 text-center lg:text-left space-y-4"
-        data-aos="fade-right"
-      >
-        <h4 class="text-pink-400 font-semibold text-lg">HELLO, I'M</h4>
-        <h2 class="text-4xl md:text-5xl font-extrabold">Tita Rismawati</h2>
-        <p class="text-lg text-gray-300 leading-relaxed max-w-xl">
-          Fresh graduate in Telecommunication Systems specializing in
-          <span class="text-pink-300 font-semibold">Web Development</span>,
-          <span class="text-pink-300 font-semibold">DevOps</span>, and
-          <span class="text-pink-300 font-semibold">Cloud Computing</span>.
-        </p>
-        <div class="flex justify-center lg:justify-start gap-4 pt-4">
-          <a
-            href="#contact"
-            class="px-6 py-3 bg-pink-500 hover:bg-pink-600 rounded-full shadow-lg font-semibold transition"
-            >Get in Touch</a
-          >
-        </div>
-      </div>
-
-      <!-- Photo with Animated Blob -->
-      <div class="flex-1 flex justify-center" data-aos="fade-left">
-        <div
-          class="blob-shape w-72 h-72 bg-gradient-to-tr from-pink-500 via-purple-500 to-indigo-500 flex items-center justify-center overflow-hidden shadow-2xl"
-        >
-          <img
-            src="images/foto_tita1.jpeg"
-            alt="Tita Rismawati"
-            class="w-full h-full object-cover"
-          />
-        </div>
-      </div>
-    </section>
-
-    <section id="experience" class="max-w-7xl mx-auto px-6 py-16">
-      <h3
-        class="text-3xl font-bold text-center mb-12 bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent"
-      >
-        Experience
-      </h3>
-
-      <div class="space-y-8">
-        <!-- Experience 1: Engineer Icon -->
-        <div
-          class="bg-white/10 backdrop-blur rounded-xl p-6 hover:scale-[1.02] transition transform"
-        >
-          <div class="flex items-center mb-4">
-            <div
-              class="w-14 h-14 rounded-full overflow-hidden bg-white/20 flex items-center justify-center shadow-lg"
-            >
-              <img
-                src="images/logo_dev.png"
-                alt="Engineer Icon"
-                class="w-full h-full object-cover"
-              />
-            </div>
-            <div class="ml-4">
-              <h4 class="text-xl font-semibold">Web Developer - Freelance</h4>
-              <p class="text-sm text-gray-300">Jan 2023 – Sekarang</p>
-            </div>
-          </div>
-          <p class="text-gray-300 leading-relaxed">
-            Develop and maintain responsive websites and web applications for
-            diverse clients. Skilled in HTML, CSS, JavaScript, PHP, Laravel,
-            CodeIgniter, React, Vue.js, Node.js, Golang, .NET, SQL databases,
-            and WordPress.
+    <!-- PROFILE -->
+    <main class="pt-32">
+      <section id="profile" class="pt-6 pb-16 px-6 max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12">
+        <div class="flex-1 text-center lg:text-left space-y-4" data-aos="fade-right">
+          <h4 class="text-pink-400 font-semibold text-lg">HELLO, I'M</h4>
+          <h2 class="text-4xl md:text-5xl font-extrabold">Tita Rismawati</h2>
+          <p class="text-lg text-gray-300 leading-relaxed max-w-xl">
+            Fresh graduate in Telecommunication Systems specializing in
+            <span class="text-pink-300 font-semibold">Web Development</span>,
+            <span class="text-pink-300 font-semibold">DevOps</span>, and
+            <span class="text-pink-300 font-semibold">Cloud Computing</span>.
           </p>
+          <div class="flex justify-center lg:justify-start gap-4 pt-4">
+            <a href="#contact" class="px-6 py-3 bg-pink-500 hover:bg-pink-600 rounded-full shadow-lg font-semibold transition">
+              Get in Touch
+            </a>
+            <a href="#projects" class="px-6 py-3 border border-white/10 rounded-full hover:bg-white/5 transition">
+              See Projects
+            </a>
+          </div>
         </div>
 
-        <!-- Experience 2: Telkom Indonesia -->
-        <div
-          class="bg-white/10 backdrop-blur rounded-xl p-6 hover:scale-[1.02] transition transform"
-        >
-          <div class="flex items-center mb-4">
-            <div
-              class="w-14 h-14 rounded-full overflow-hidden bg-white/20 flex items-center justify-center shadow-lg"
-            >
-              <img
-                src="images/logo_telkom.png"
-                alt="Telkom Indonesia Logo"
-                class="w-full h-full object-cover"
-              />
+        <div class="flex-1 flex justify-center" data-aos="fade-left">
+          <div class="blob-shape w-72 h-72 bg-gradient-to-tr from-pink-500 via-purple-500 to-indigo-500 flex items-center justify-center overflow-hidden shadow-2xl rounded-2xl">
+            <img src="images/foto_tita1.jpeg" alt="Tita Rismawati" class="w-full h-full object-cover" />
+          </div>
+        </div>
+      </section>
+
+      <!-- EXPERIENCE -->
+      <section id="experience" class="max-w-7xl mx-auto px-6 py-16">
+        <h3 class="text-3xl font-bold text-center mb-12 bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
+          Experience
+        </h3>
+
+        <div class="space-y-8">
+          <div class="bg-white/8 backdrop-blur rounded-xl p-6 hover:scale-[1.02] transition transform">
+            <div class="flex items-center mb-4">
+              <div class="w-14 h-14 rounded-full overflow-hidden bg-white/10 flex items-center justify-center shadow-lg">
+                <img src="images/logo_dev.png" alt="Dev" class="w-full h-full object-cover" />
+              </div>
+              <div class="ml-4">
+                <h4 class="text-xl font-semibold">Web Developer - Freelance</h4>
+                <p class="text-sm text-gray-300">Jan 2023 – Sekarang</p>
+              </div>
             </div>
-            <div class="ml-4">
-              <h4 class="text-xl font-semibold">
-                Developer Intern – Telkom Indonesia
-              </h4>
-              <p class="text-sm text-gray-300">Sep 2024 – Dec 2024</p>
+            <p class="text-gray-300 leading-relaxed">
+              Develop and maintain responsive websites and web applications for
+              diverse clients. Skilled in HTML, CSS, JavaScript, PHP, Laravel,
+              CodeIgniter, React, Vue.js, Node.js, Golang, .NET, SQL databases,
+              and WordPress.
+            </p>
+          </div>
+
+          <div class="bg-white/8 backdrop-blur rounded-xl p-6 hover:scale-[1.02] transition transform">
+            <div class="flex items-center mb-4">
+              <div class="w-14 h-14 rounded-full overflow-hidden bg-white/10 flex items-center justify-center shadow-lg">
+                <img src="images/logo_telkom.png" alt="Telkom" class="w-full h-full object-cover" />
+              </div>
+              <div class="ml-4">
+                <h4 class="text-xl font-semibold">Developer Intern – Telkom Indonesia</h4>
+                <p class="text-sm text-gray-300">Sep 2024 – Dec 2024</p>
+              </div>
             </div>
+            <p class="text-gray-300 leading-relaxed">
+              Develop user interfaces with React, TypeScript, and NestJS,
+              implement UI/UX designs, manage WordPress content, and design
+              HTML/CSS email templates. Experienced with databases (MySQL,
+              MongoDB, Elasticsearch, Cassandra), CI/CD tools (Jenkins, Rancher,
+              Datadog, Drone), security analysis with IriusRisk, and development
+              environments using Docker and WSL.
+            </p>
           </div>
-          <p class="text-gray-300 leading-relaxed">
-            Develop user interfaces with React, TypeScript, and NestJS,
-            implement UI/UX designs, manage WordPress content, and design
-            HTML/CSS email templates. Experienced with databases (MySQL,
-            MongoDB, Elasticsearch, Cassandra), CI/CD tools (Jenkins, Rancher,
-            Datadog, Drone), security analysis with IriusRisk, and development
-            environments using Docker and WSL.
-          </p>
-        </div>
 
-        <!-- Experience 3: UPI -->
-        <div
-          class="bg-white/10 backdrop-blur rounded-xl p-6 hover:scale-[1.02] transition transform"
-        >
-          <div class="flex items-center mb-4">
-            <div
-              class="w-14 h-14 rounded-full overflow-hidden bg-white/20 flex items-center justify-center shadow-lg"
-            >
-              <img
-                src="images/logo_upi.jpg"
-                alt="UPI Logo"
-                class="w-full h-full object-cover"
-              />
+          <div class="bg-white/8 backdrop-blur rounded-xl p-6 hover:scale-[1.02] transition transform">
+            <div class="flex items-center mb-4">
+              <div class="w-14 h-14 rounded-full overflow-hidden bg-white/10 flex items-center justify-center shadow-lg">
+                <img src="images/logo_upi.jpg" alt="UPI" class="w-full h-full object-cover" />
+              </div>
+              <div class="ml-4">
+                <h4 class="text-xl font-semibold">Front-End Developer – Universitas Pendidikan Indonesia</h4>
+                <p class="text-sm text-gray-300">Nov 2023 – Dec 2024</p>
+              </div>
             </div>
-            <div class="ml-4">
-              <h4 class="text-xl font-semibold">
-                Front-End Developer – Universitas Pendidikan Indonesia
-              </h4>
-              <p class="text-sm text-gray-300">Nov 2023 – Dec 2024</p>
-            </div>
-          </div>
-          <p class="text-gray-300 leading-relaxed">
-            Develop and maintain a WordPress-based website for the
-            Telecommunications Systems study program, optimizing performance for
-            faster access and improved SEO.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="max-w-7xl mx-auto px-6 py-16">
-      <h3
-        class="text-3xl font-bold text-center mb-12 bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent"
-      >
-        My Projects
-      </h3>
-      <div class="grid md:grid-cols-3 gap-8" data-aos="fade-up">
-        <div
-          class="bg-white/10 backdrop-blur rounded-xl overflow-hidden shadow-lg hover:scale-105 transition"
-        >
-          <img
-            src="images/havi.png"
-            alt="Havimahesakarya Company Profile"
-            class="w-full h-48 object-cover"
-          />
-          <div class="p-6">
-            <h4 class="text-xl font-semibold mb-2">
-              Havi Mahesa Karya Company Profile
-            </h4>
-            <p class="text-gray-300 mb-4">
-              Company profile website for a construction services company,
-              developed using WordPress with a focus on clean design and SEO
-              optimization.
+            <p class="text-gray-300 leading-relaxed">
+              Develop and maintain a WordPress-based website for the
+              Telecommunications Systems study program, optimizing performance for
+              faster access and improved SEO.
             </p>
-            <a
-              href="https://havimahesakarya.com/"
-              target="_blank"
-              class="text-pink-400 font-semibold hover:underline"
-              >View Live →</a
-            >
           </div>
         </div>
+      </section>
 
-        <div
-          class="bg-white/10 backdrop-blur rounded-xl overflow-hidden shadow-lg hover:scale-105 transition"
-        >
-          <img
-            src="images/apilogy.png"
-            alt="Apilogy Identity Portal"
-            class="w-full h-48 object-cover"
-          />
-          <div class="p-6">
-            <h4 class="text-xl font-semibold mb-2">Apilogy Identity Portal</h4>
-            <p class="text-gray-300 mb-4">
-              Contributed during internship as a frontend developer, working on
-              the identity section using React and TypeScript.
-            </p>
-            <a
-              href="https://www.apilogy.id/"
-              target="_blank"
-              class="text-pink-400 font-semibold hover:underline"
-              >View Live →</a
-            >
-          </div>
-        </div>
+      <!-- PROJECTS -->
+      <section id="projects" class="max-w-7xl mx-auto px-6 py-16">
+        <h3 class="text-3xl font-bold text-center mb-12 bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
+          My Projects
+        </h3>
 
-        <!-- Project Card 1 -->
-        <div
-          class="bg-white/10 backdrop-blur rounded-xl overflow-hidden shadow-lg hover:scale-105 transition"
-        >
-          <img
-            src="images/5.png"
-            alt="Telecommunications Systems Website"
-            class="w-full h-48 object-cover"
-          />
-          <div class="p-6">
-            <h4 class="text-xl font-semibold mb-2">
-              Telecommunications Systems Study Program Website
-            </h4>
-            <p class="text-gray-300 mb-4">
-              WordPress-based website optimized for performance and SEO.
-              <br /><span class="italic">Live at: sistel.upi.edu</span>
-            </p>
-            <a
-              href="https://sistel.upi.edu"
-              target="_blank"
-              class="text-pink-400 font-semibold hover:underline"
-              >View Live →</a
-            >
-          </div>
-        </div>
-
-        <!-- Project with Badge -->
-        <div
-          class="bg-white/10 backdrop-blur rounded-xl overflow-hidden shadow-lg hover:scale-105 transition relative"
-        >
-          <span
-            class="absolute top-3 right-3 text-xs px-2 py-1 rounded-full bg-white/20"
-            >Certification Project</span
-          >
-
-          <img
-            src="images/ruangguru.png"
-            alt="Ruangguru – Integrasi AI dalam Pengembangan Aplikasi Backend Engineering"
-            class="w-full h-48 object-cover"
-          />
-          <div class="p-6">
-            <h4 class="text-xl font-semibold mb-2">
-              Ruangguru – Integrating AI in Backend Engineering
-            </h4>
-            <p class="text-gray-300 mb-4">
-              Completed 70+ assignments covering software development,
-              networking, and ML. Built terminal-based and web apps in Golang
-              with REST APIs, authentication (JWT, OAuth2), third-party API
-              integration, and clean architecture. Practiced data structures,
-              algorithms, concurrency (goroutines, channels), and basic ML
-              projects while sharpening collaboration and presentation skills.
-            </p>
-            <div class="flex items-center gap-4">
-              <a
-                href="https://github.com/titarismaa/finalproject-ruangguru.git"
-                target="_blank"
-                class="text-pink-400 font-semibold hover:underline"
-                >View Details →</a
-              >
+        <div class="grid md:grid-cols-3 gap-8" data-aos="fade-up">
+          <div class="bg-white/6 backdrop-blur rounded-xl overflow-hidden shadow-lg hover:scale-105 transition">
+            <img src="images/havi.png" alt="Havi Mahesa Karya" class="w-full h-48 object-cover" />
+            <div class="p-6">
+              <h4 class="text-xl font-semibold mb-2">Havi Mahesa Karya Company Profile</h4>
+              <p class="text-gray-300 mb-4">Company profile website for a construction services company, developed using WordPress with a focus on clean design and SEO optimization.</p>
+              <a href="https://havimahesakarya.com/" target="_blank" class="text-pink-400 font-semibold hover:underline">View Live →</a>
             </div>
           </div>
-        </div>
 
-        <div
-          class="bg-white/10 backdrop-blur rounded-xl overflow-hidden shadow-lg hover:scale-105 transition"
-        >
-          <img
-            src="images/moodle.png"
-            alt="CI/CD Reliability Analysis"
-            class="w-full h-48 object-cover"
-          />
-          <div class="p-6">
-            <h4 class="text-xl font-semibold mb-2">
-              CI/CD Pipeline Reliability Analysis – Monolithic vs Microservices
-            </h4>
-            <p class="text-gray-300 mb-4">
-              Undergraduate thesis analyzing the reliability of CI/CD pipelines
-              on monolithic and microservices architectures using Moodle as a
-              case study. Focused on MTTR, rollback times, and deployment
-              success rates. Results showed microservices reduced MTTR by over
-              75% and proved more resilient.
-            </p>
+          <div class="bg-white/6 backdrop-blur rounded-xl overflow-hidden shadow-lg hover:scale-105 transition">
+            <img src="images/apilogy.png" alt="Apilogy" class="w-full h-48 object-cover" />
+            <div class="p-6">
+              <h4 class="text-xl font-semibold mb-2">Apilogy Identity Portal</h4>
+              <p class="text-gray-300 mb-4">Contributed during internship as a frontend developer, working on the identity section using React and TypeScript.</p>
+              <a href="https://www.apilogy.id/" target="_blank" class="text-pink-400 font-semibold hover:underline">View Live →</a>
+            </div>
+          </div>
+
+          <div class="bg-white/6 backdrop-blur rounded-xl overflow-hidden shadow-lg hover:scale-105 transition">
+            <img src="images/5.png" alt="Sistel UPI" class="w-full h-48 object-cover" />
+            <div class="p-6">
+              <h4 class="text-xl font-semibold mb-2">Telecommunications Systems Study Program Website</h4>
+              <p class="text-gray-300 mb-4">WordPress-based website optimized for performance and SEO.<br /><span class="italic">Live at: sistel.upi.edu</span></p>
+              <a href="https://sistel.upi.edu" target="_blank" class="text-pink-400 font-semibold hover:underline">View Live →</a>
+            </div>
+          </div>
+
+          <div class="bg-white/6 backdrop-blur rounded-xl overflow-hidden shadow-lg hover:scale-105 transition relative">
+            <span class="absolute top-3 right-3 text-xs px-2 py-1 rounded-full bg-white/10">Certification Project</span>
+            <img src="images/ruangguru.png" alt="Ruangguru" class="w-full h-48 object-cover" />
+            <div class="p-6">
+              <h4 class="text-xl font-semibold mb-2">Ruangguru – Integrating AI in Backend Engineering</h4>
+              <p class="text-gray-300 mb-4">Completed 70+ assignments covering software development, networking, and ML. Built terminal-based and web apps in Golang with REST APIs, JWT/OAuth2, third-party API integration, and clean architecture.</p>
+              <a href="https://github.com/titarismaa/finalproject-ruangguru.git" target="_blank" class="text-pink-400 font-semibold hover:underline">View Details →</a>
+            </div>
+          </div>
+
+          <div class="bg-white/6 backdrop-blur rounded-xl overflow-hidden shadow-lg hover:scale-105 transition">
+            <img src="images/moodle.png" alt="Moodle CI/CD" class="w-full h-48 object-cover" />
+            <div class="p-6">
+              <h4 class="text-xl font-semibold mb-2">CI/CD Pipeline Reliability Analysis</h4>
+              <p class="text-gray-300 mb-4">Undergraduate thesis analyzing the reliability of CI/CD pipelines on monolithic and microservices architectures. Focused on MTTR, rollback times, and deployment success rates.</p>
+            </div>
+          </div>
+
+          <div class="bg-white/6 backdrop-blur rounded-xl overflow-hidden shadow-lg hover:scale-105 transition">
+            <img src="images/oop.jpg" alt="VBA OOP" class="w-full h-48 object-cover" />
+            <div class="p-6">
+              <h4 class="text-xl font-semibold mb-2">Inventory Management – VBA OOP (Excel)</h4>
+              <p class="text-gray-300 mb-4">Private Client Project — object-oriented Excel VBA system for inventory tracking, purchase & sales records, and automated reporting.</p>
+            </div>
+          </div>
+
+          <div class="bg-white/6 backdrop-blur rounded-xl overflow-hidden shadow-lg hover:scale-105 transition">
+            <img src="images/1.png" alt="Titanium Website" class="w-full h-48 object-cover" />
+            <div class="p-6">
+              <h4 class="text-xl font-semibold mb-2">Titanium Website</h4>
+              <p class="text-gray-300 mb-4">Responsive company profile website built using HTML and CSS.</p>
+            </div>
+          </div>
+
+          <div class="bg-white/6 backdrop-blur rounded-xl overflow-hidden shadow-lg hover:scale-105 transition">
+            <img src="images/2.png" alt="Traxex Store" class="w-full h-48 object-cover" />
+            <div class="p-6">
+              <h4 class="text-xl font-semibold mb-2">Traxex Store</h4>
+              <p class="text-gray-300 mb-4">E-commerce website for Mobile Legends diamond top-up, developed with PHP.</p>
+            </div>
+          </div>
+
+          <div class="bg-white/6 backdrop-blur rounded-xl overflow-hidden shadow-lg hover:scale-105 transition">
+            <img src="images/3.png" alt="Feast 2023" class="w-full h-48 object-cover" />
+            <div class="p-6">
+              <h4 class="text-xl font-semibold mb-2">Feast 2023 Announcement</h4>
+              <p class="text-gray-300 mb-4">Event announcement platform built using PHP to provide participant updates and schedules.</p>
+            </div>
+          </div>
+
+          <div class="bg-white/6 backdrop-blur rounded-xl overflow-hidden shadow-lg hover:scale-105 transition">
+            <img src="images/4.png" alt="Metasisko 2023" class="w-full h-48 object-cover" />
+            <div class="p-6">
+              <h4 class="text-xl font-semibold mb-2">Metasisko 2023 Announcement</h4>
+              <p class="text-gray-300 mb-4">PHP-based event website to display announcements and information for participants.</p>
+            </div>
+          </div>
+
+          <div class="bg-white/6 backdrop-blur rounded-xl overflow-hidden shadow-lg hover:scale-105 transition">
+            <img src="images/6.png" alt="Selfclothing" class="w-full h-48 object-cover" />
+            <div class="p-6">
+              <h4 class="text-xl font-semibold mb-2">Selfclothing</h4>
+              <p class="text-gray-300 mb-4">E-commerce platform for a clothing brand, developed with Laravel.</p>
+            </div>
           </div>
         </div>
+      </section>
 
-        <div
-          class="bg-white/10 backdrop-blur rounded-xl overflow-hidden shadow-lg hover:scale-105 transition"
-        >
-          <img
-            src="images/oop.jpg"
-            alt="Inventory Management – VBA OOP (Excel)"
-            class="w-full h-48 object-cover"
-          />
-          <div class="p-6">
-            <h4 class="text-xl font-semibold mb-2">
-              Inventory Management – VBA OOP (Excel)
-            </h4>
-            <p class="text-gray-300 mb-4">
-              Private Client Project — inventory tracking system using OOP Excel
-              VBA, complete with automated reports and data validation.
-            </p>
+      <!-- SKILLS -->
+      <section id="skills" class="py-20 bg-gray-50">
+        <div class="max-w-6xl mx-auto px-6">
+          <h2 class="text-3xl font-bold mb-10 text-center text-gray-900">Skills</h2>
+
+          <div class="grid md:grid-cols-3 gap-6">
+            <div class="p-6 bg-white rounded-xl shadow" data-aos="fade-up">
+              <h3 class="font-semibold text-xl mb-3">Programming</h3>
+              <p>Python, Java, PHP, JavaScript, SQL, Golang</p>
+            </div>
+
+            <div class="p-6 bg-white rounded-xl shadow" data-aos="fade-up" data-aos-delay="100">
+              <h3 class="font-semibold text-xl mb-3">Cloud</h3>
+              <p>AWS, GCP, ICP, Apilogy</p>
+            </div>
+
+            <div class="p-6 bg-white rounded-xl shadow" data-aos="fade-up" data-aos-delay="200">
+              <h3 class="font-semibold text-xl mb-3">Tools</h3>
+              <p>Git, Figma, Postman, Maven, Docker, Kubernetes, Jenkins</p>
+            </div>
+          </div>
+
+          <div class="grid md:grid-cols-3 gap-6 mt-8">
+            <div class="p-6 bg-white rounded-xl shadow" data-aos="fade-up">
+              <h3 class="text-xl font-semibold mb-4">Frontend</h3>
+              <div class="flex flex-wrap gap-3 items-center">
+                <i class="devicon-html5-plain devicon-large"></i>
+                <i class="devicon-css3-plain devicon-large"></i>
+                <i class="devicon-javascript-plain devicon-large"></i>
+                <i class="devicon-typescript-plain devicon-large"></i>
+                <i class="devicon-react-original devicon-large"></i>
+                <i class="devicon-vuejs-plain devicon-large"></i>
+              </div>
+            </div>
+
+            <div class="p-6 bg-white rounded-xl shadow" data-aos="fade-up" data-aos-delay="150">
+              <h3 class="text-xl font-semibold mb-4">Backend</h3>
+              <div class="flex flex-wrap gap-3 items-center">
+                <i class="devicon-php-plain devicon-large"></i>
+                <i class="devicon-laravel-plain devicon-large"></i>
+                <i class="devicon-nodejs-plain devicon-large"></i>
+                <i class="devicon-go-plain devicon-large"></i>
+              </div>
+            </div>
+
+            <div class="p-6 bg-white rounded-xl shadow" data-aos="fade-up" data-aos-delay="300">
+              <h3 class="text-xl font-semibold mb-4">Cloud & DevOps</h3>
+              <div class="flex flex-wrap gap-3 items-center">
+                <i class="devicon-amazonwebservices-original devicon-large"></i>
+                <i class="devicon-googlecloud-plain devicon-large"></i>
+                <i class="devicon-docker-plain devicon-large"></i>
+                <i class="devicon-jenkins-plain devicon-large"></i>
+                <i class="devicon-linux-plain devicon-large"></i>
+              </div>
+            </div>
           </div>
         </div>
+      </section>
 
-        <div
-          class="bg-white/10 backdrop-blur rounded-xl overflow-hidden shadow-lg hover:scale-105 transition"
-        >
-          <img
-            src="images/1.png"
-            alt="Titanium Website"
-            class="w-full h-48 object-cover"
-          />
-          <div class="p-6">
-            <h4 class="text-xl font-semibold mb-2">Titanium Website</h4>
-            <p class="text-gray-300 mb-4">
-              Responsive company profile website built using HTML and CSS.
-            </p>
+      <!-- CERTIFICATIONS -->
+      <section id="certifications" class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-6">
+          <h2 class="text-3xl font-bold mb-10 text-center text-gray-900">Certifications</h2>
+
+          <div class="grid md:grid-cols-3 gap-8">
+            <div class="bg-white/6 backdrop-blur rounded-xl p-6 shadow-lg hover:scale-105 transition">
+              <div class="flex items-center gap-4">
+                <img src="images/skillvul.jpeg" alt="Skilvul" class="w-14 h-14 rounded-md object-cover" />
+                <div>
+                  <h4 class="text-xl font-semibold">Web Development Pemula - Special Challenge</h4>
+                  <p class="text-sm text-gray-600">Issued: Jun 2025 · Expires: Jun 2027</p>
+                </div>
+              </div>
+              <a href="https://skilvul.com/paths/web-development-pemula-challenge-based/student/cm8n4z88400j101p11dee9vj9/" target="_blank" class="inline-block mt-4 text-pink-500 hover:underline">View Certificate</a>
+            </div>
+
+            <div class="bg-white/6 backdrop-blur rounded-xl p-6 shadow-lg hover:scale-105 transition">
+              <div class="flex items-center gap-4">
+                <img src="images/google.jpeg" alt="Google" class="w-14 h-14 rounded-md object-cover" />
+                <div>
+                  <h4 class="text-xl font-semibold">IT Security: Defense against the digital dark arts</h4>
+                  <p class="text-sm text-gray-600">Issued: Jul 2024</p>
+                </div>
+              </div>
+              <a href="https://www.coursera.org/account/accomplishments/records/YLDUESPNAF74" target="_blank" class="inline-block mt-4 text-pink-500 hover:underline">View Certificate</a>
+            </div>
+
+            <div class="bg-white/6 backdrop-blur rounded-xl p-6 shadow-lg hover:scale-105 transition">
+              <div class="flex items-center gap-4">
+                <img src="images/bnsp.jpeg" alt="BNSP" class="w-14 h-14 rounded-md object-cover" />
+                <div>
+                  <h4 class="text-xl font-semibold">Intermediate Computer Operator</h4>
+                  <p class="text-sm text-gray-600">Issued: Jun 2024 · Expires: Jun 2027</p>
+                </div>
+              </div>
+              <a href="#" class="inline-block mt-4 text-pink-500 hover:underline">View Certificate</a>
+            </div>
           </div>
         </div>
+      </section>
 
-        <div
-          class="bg-white/10 backdrop-blur rounded-xl overflow-hidden shadow-lg hover:scale-105 transition"
-        >
-          <img
-            src="images/2.png"
-            alt="Traxex Store"
-            class="w-full h-48 object-cover"
-          />
-          <div class="p-6">
-            <h4 class="text-xl font-semibold mb-2">Traxex Store</h4>
-            <p class="text-gray-300 mb-4">
-              E-commerce platform for Mobile Legends diamond top-up built with
-              PHP.
-            </p>
+      <!-- ARTICLES / MEDIUM -->
+      <section id="articles" class="py-20 bg-gray-50">
+        <div class="max-w-6xl mx-auto px-6">
+          <h2 class="text-3xl font-bold mb-6 text-center text-gray-900">Medium</h2>
+          <p class="text-center text-gray-600 mb-8">Latest writings from my Medium profile.</p>
+
+          <div id="medium-articles" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Cards will be injected here by JavaScript -->
+            <div id="articles-loading" class="col-span-full text-center text-gray-500">Loading articles...</div>
+          </div>
+
+          <div class="text-center mt-10">
+            <a id="seeAllBtn" href="https://medium.com/@titarisma" target="_blank" class="text-pink-600 font-semibold hover:underline">
+              Lihat semua tulisan di Medium →
+            </a>
           </div>
         </div>
+      </section>
 
-        <div
-          class="bg-white/10 backdrop-blur rounded-xl overflow-hidden shadow-lg hover:scale-105 transition"
-        >
-          <img
-            src="images/3.png"
-            alt="Feast 2023 Announcement"
-            class="w-full h-48 object-cover"
-          />
-          <div class="p-6">
-            <h4 class="text-xl font-semibold mb-2">Feast 2023 Announcement</h4>
-            <p class="text-gray-300 mb-4">
-              Event announcement platform built with PHP for real-time
-              participant updates.
-            </p>
+      <!-- CONTACT -->
+      <section id="contact" class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-6 text-center">
+          <h2 class="text-3xl font-bold mb-6 text-gray-900">Contact</h2>
+          <p class="text-gray-600 mb-6">Feel free to reach me anytime.</p>
+
+          <div class="grid md:grid-cols-4 gap-6">
+            <div class="bg-white/6 rounded-xl p-6 text-center">
+              <div class="w-12 h-12 mx-auto flex items-center justify-center rounded-full bg-red-500 text-white mb-4">
+                <i class="devicon-google-plain"></i>
+              </div>
+              <h4 class="font-semibold">Email</h4>
+              <a href="mailto:titarisma65@gmail.com" class="block text-sm mt-2 text-pink-500">titarisma65@gmail.com</a>
+            </div>
+
+            <div class="bg-white/6 rounded-xl p-6 text-center">
+              <div class="w-12 h-12 mx-auto flex items-center justify-center rounded-full bg-blue-600 text-white mb-4">
+                <i class="devicon-linkedin-plain"></i>
+              </div>
+              <h4 class="font-semibold">LinkedIn</h4>
+              <a href="https://www.linkedin.com/in/titarisma" target="_blank" class="block text-sm mt-2 text-pink-500">linkedin.com/in/titarisma</a>
+            </div>
+
+            <div class="bg-white/6 rounded-xl p-6 text-center">
+              <div class="w-12 h-12 mx-auto flex items-center justify-center rounded-full bg-gray-800 text-white mb-4">
+                <i class="devicon-github-original"></i>
+              </div>
+              <h4 class="font-semibold">GitHub</h4>
+              <a href="https://github.com/titarismaa" target="_blank" class="block text-sm mt-2 text-pink-500">github.com/titarismaa</a>
+            </div>
+
+            <div class="bg-white/6 rounded-xl p-6 text-center">
+              <div class="w-12 h-12 mx-auto flex items-center justify-center rounded-full bg-green-500 text-white mb-4">
+                <!-- whatsapp icon svg -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M13.545 12.08c-.17-.083-.99-.49-1.145-.546-.155-.056-.268-.083-.381.083-.114.165-.442.546-.542.657-.1.11-.2.125-.37.042-.17-.083-.715-.263-1.362-.837-.504-.45-.843-1.006-.942-1.177-.1-.17-.01-.262.076-.345.078-.074.173-.19.26-.285.087-.095.116-.165.174-.277.058-.11.029-.208-.01-.29-.04-.083-.364-.877-.5-1.2-.132-.315-.27-.27-.386-.275-.114-.006-.246-.006-.378-.006s-.27.04-.41.197c-.14.156-.533.484-.533 1.178 0 .693.546 1.38.62 1.473.074.094 1.08 1.655 2.615 2.255 0.365.158.65.252.876.323.387.108.74.093 1.02.056.312-.046.963-.388 1.1-.857.135-.47.13-.897.09-.98-.036-.082-.132-.12-.322-.21z"/>
+                  <path d="M12 3C7.037 3 3 7.037 3 12c0 1.991.57 3.838 1.556 5.403L3 21l3.854-1.37C8.135 20.56 9.998 21 12 21c4.963 0 9-4.037 9-9s-4.037-9-9-9z"/>
+                </svg>
+              </div>
+              <h4 class="font-semibold">WhatsApp</h4>
+              <a href="https://wa.me/6285794105648" target="_blank" class="block text-sm mt-2 text-pink-500">+62 857-9410-5648</a>
+            </div>
           </div>
         </div>
+      </section>
 
-        <div
-          class="bg-white/10 backdrop-blur rounded-xl overflow-hidden shadow-lg hover:scale-105 transition"
-        >
-          <img
-            src="images/4.png"
-            alt="Metasisko 2023 Announcement"
-            class="w-full h-48 object-cover"
-          />
-          <div class="p-6">
-            <h4 class="text-xl font-semibold mb-2">
-              Metasisko 2023 Announcement
-            </h4>
-            <p class="text-gray-300 mb-4">
-              PHP-based event platform to display schedules and announcements.
-            </p>
-          </div>
-        </div>
+      <!-- FOOTER -->
+      <footer class="py-6 bg-gray-900 text-center text-gray-300">
+        <p>&copy; 2025 Tita Rismawati. All Rights Reserved.</p>
+      </footer>
+    </main>
 
-        <div
-          class="bg-white/10 backdrop-blur rounded-xl overflow-hidden shadow-lg hover:scale-105 transition"
-        >
-          <img
-            src="images/6.png"
-            alt="Selfclothing Website"
-            class="w-full h-48 object-cover"
-          />
-          <div class="p-6">
-            <h4 class="text-xl font-semibold mb-2">Selfclothing</h4>
-            <p class="text-gray-300 mb-4">
-              E-commerce platform for a clothing brand developed using Laravel.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-     <!-- SKILLS -->
-    <section id="skills" class="py-20 bg-gray-50">
-      <div class="max-w-6xl mx-auto px-6">
-        <h2 class="text-3xl font-bold mb-10 text-center">Skills</h2>
-
-        <div class="grid md:grid-cols-3 gap-6">
-          <div class="p-6 bg-white rounded-xl shadow" data-aos="fade-up">
-            <h3 class="font-semibold text-xl mb-3">Programming</h3>
-            <p>Python, Java, PHP, JavaScript, SQL</p>
-          </div>
-
-          <div class="p-6 bg-white rounded-xl shadow" data-aos="fade-up" data-aos-delay="100">
-            <h3 class="font-semibold text-xl mb-3">Cloud</h3>
-            <p>AWS, GCP, ICP, Apilogy</p>
-          </div>
-
-          <div class="p-6 bg-white rounded-xl shadow" data-aos="fade-up" data-aos-delay="200">
-            <h3 class="font-semibold text-xl mb-3">Tools</h3>
-            <p>Git, Figma, Postman, Maven, CodeIgniter</p>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- CERTIFICATIONS -->
-    <section id="certifications" class="py-20 bg-white">
-      <div class="max-w-6xl mx-auto px-6">
-        <h2 class="text-3xl font-bold mb-10 text-center">Certifications</h2>
-
-        <div class="grid md:grid-cols-2 gap-6">
-
-          <div class="p-6 bg-gray-50 rounded-xl shadow" data-aos="fade-right">
-            <h3 class="font-semibold text-xl mb-2">Google Cybersecurity</h3>
-            <p class="text-gray-600">Completed foundational cybersecurity training.</p>
-          </div>
-
-          <div class="p-6 bg-gray-50 rounded-xl shadow" data-aos="fade-left">
-            <h3 class="font-semibold text-xl mb-2">Google Technical Support</h3>
-            <p class="text-gray-600">Basics of network, troubleshooting, Linux, and IT support.</p>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ARTICLES / MEDIUM -->
-<section id="articles" class="py-20 bg-gray-50">
-  <div class="max-w-6xl mx-auto px-6">
-    <h2 class="text-3xl font-bold mb-10 text-center">Medium</h2>
-
-    <!-- Container untuk artikel -->
-    <div id="medium-articles" class="grid md:grid-cols-3 gap-6">
-      <!-- Artikel akan dimasukkan otomatis oleh JavaScript -->
-    </div>
-
-    <!-- Tombol ke Medium -->
-    <div class="text-center mt-10">
-      <a href="https://medium.com/@titarisma"
-         class="text-blue-600 font-semibold hover:underline"
-         target="_blank">
-        Lihat semua →
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-    <section id="contact" class="py-20 bg-white">
-      <div class="max-w-6xl mx-auto px-6 text-center">
-        <h2 class="text-3xl font-bold mb-6">Contact</h2>
-        <p class="text-gray-600 mb-6">Feel free to reach me anytime.</p>
-
-        <div class="space-y-2 text-lg">
-          <p>Email: <a href="mailto:titarismawati@gmail.com" class="text-blue-600">titarismawati@gmail.com</a></p>
-          <p>LinkedIn: <a href="#" class="text-blue-600">linkedin.com/in/titarismawati</a></p>
-          <p>GitHub: <a href="#" class="text-blue-600">github.com/titarismawati</a></p>
-        </div>
-      </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="py-6 bg-gray-900 text-center text-gray-300">
-      <p>&copy; 2025 Tita Rismawati. All rights reserved.</p>
-    </footer>
-
-    <script>
-  async function loadMediumArticles() {
-    const mediumRSS =
-      "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@titarisma";
-
-    try {
-      const res = await fetch(mediumRSS);
-      const data = await res.json();
-
-      const container = document.getElementById("medium-articles");
-      container.innerHTML = "";
-
-      // Ambil 6 artikel terbaru
-      const posts = data.items.slice(0, 6);
-
-      posts.forEach((post, index) => {
-        const card = document.createElement("a");
-        card.href = post.link;
-        card.target = "_blank";
-
-        card.className =
-          "p-6 bg-white rounded-xl shadow hover:shadow-lg transition block";
-
-        card.setAttribute("data-aos", "zoom-in");
-        card.setAttribute("data-aos-delay", index * 100);
-
-        card.innerHTML = `
-          <h3 class="font-semibold text-xl mb-2">${post.title}</h3>
-          <p class="text-gray-600 text-sm">
-            ${post.pubDate.substring(0, 10)}
-          </p>
-        `;
-
-        container.appendChild(card);
-      });
-    } catch (err) {
-      console.error("Medium fetch failed:", err);
-    }
-  }
-
-  loadMediumArticles();
-</script>
-
-    <!-- AOS Animation -->
+    <!-- SCRIPTS -->
+    <!-- AOS -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-      AOS.init();
-    </script>
 
-    <!-- NAVBAR SHADOW SCROLL -->
     <script>
+      // Initialize AOS
+      AOS.init({
+        duration: 900,
+        once: true,
+        offset: 80,
+      });
+
+      // Mobile menu toggle
+      const mobileBtn = document.getElementById("mobileMenuBtn");
+      const mobileMenu = document.getElementById("mobileMenu");
+      if (mobileBtn) {
+        mobileBtn.addEventListener("click", () => {
+          mobileMenu.classList.toggle("hidden");
+        });
+      }
+
+      // Navbar scroll effect (toggle nav-scrolled)
       const navbar = document.getElementById("navbar");
       window.addEventListener("scroll", () => {
-        if (window.scrollY > 10) {
-          navbar.classList.add("shadow-lg");
+        if (window.scrollY > 12) {
+          navbar.classList.add("nav-scrolled");
         } else {
-          navbar.classList.remove("shadow-lg");
+          navbar.classList.remove("nav-scrolled");
         }
+      });
+
+      // Smooth scroll for internal anchors
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          const href = this.getAttribute("href");
+          if (href.length > 1) {
+            e.preventDefault();
+            const target = document.querySelector(href);
+            if (target) {
+              window.scrollTo({
+                top: target.offsetTop - 70,
+                behavior: "smooth",
+              });
+            }
+          }
+        });
       });
     </script>
 
+    <!-- MEDIUM RSS FETCH (6 latest posts) -->
+    <script>
+      async function loadMediumArticles() {
+        const rss2jsonEndpoint = "https://api.rss2json.com/v1/api.json";
+        const mediumFeed = "https://medium.com/feed/@titarisma";
+        const url = `${rss2jsonEndpoint}?rss_url=${encodeURIComponent(mediumFeed)}`;
+
+        const container = document.getElementById("medium-articles");
+        const loadingEl = document.getElementById("articles-loading");
+
+        try {
+          const res = await fetch(url);
+          if (!res.ok) throw new Error("Network response not ok");
+          const data = await res.json();
+
+          // remove loading text
+          if (loadingEl) loadingEl.remove();
+
+          const items = (data.items || []).slice(0, 6); // 6 latest
+
+          if (items.length === 0) {
+            container.innerHTML = '<div class="col-span-full text-center text-gray-500">No articles found.</div>';
+            return;
+          }
+
+          items.forEach((post, idx) => {
+            // attempt to get thumbnail from content
+            let thumb = "";
+            try {
+              const html = new DOMParser().parseFromString(post.content, "text/html");
+              const img = html.querySelector("img");
+              if (img && img.src) thumb = img.src;
+            } catch (e) {
+              thumb = "";
+            }
+
+            // fallback placeholder
+            if (!thumb) {
+              thumb = "https://via.placeholder.com/800x450?text=Medium+Article";
+            }
+
+            // excerpt: some feeds include description; otherwise create short excerpt
+            let excerpt = post.description || "";
+            // strip HTML
+            excerpt = excerpt.replace(/<\/?[^>]+(>|$)/g, "").trim();
+            if (!excerpt && post.content) {
+              let txt = post.content.replace(/<\/?[^>]+(>|$)/g, "");
+              excerpt = txt.trim().substring(0, 160) + (txt.length > 160 ? "…" : "");
+            } else {
+              excerpt = excerpt.substring(0, 160) + (excerpt.length > 160 ? "…" : "");
+            }
+
+            // format date (YYYY-MM-DD)
+            const pubDate = new Date(post.pubDate);
+            const dateStr = isNaN(pubDate) ? "" : pubDate.toISOString().slice(0, 10);
+
+            const card = document.createElement("a");
+            card.href = post.link;
+            card.target = "_blank";
+            card.rel = "noopener noreferrer";
+            card.className = "block bg-white rounded-xl shadow hover:shadow-lg transition overflow-hidden";
+            card.setAttribute("data-aos", "fade-up");
+            card.setAttribute("data-aos-delay", idx * 80);
+
+            card.innerHTML = `
+              <div class="w-full h-40 lg:h-44 overflow-hidden article-thumb">
+                <img src="${thumb}" alt="${post.title}" class="w-full h-full object-cover"/>
+              </div>
+              <div class="p-5 bg-white">
+                <h3 class="text-gray-900 font-semibold text-lg mb-2">${escapeHtml(post.title)}</h3>
+                <p class="text-sm text-gray-600 mb-3">${escapeHtml(excerpt)}</p>
+                <div class="flex items-center justify-between">
+                  <span class="text-xs text-gray-500">${dateStr}</span>
+                  <span class="text-xs text-pink-500 font-medium">Read →</span>
+                </div>
+              </div>
+            `;
+
+            container.appendChild(card);
+          });
+        } catch (err) {
+          console.error("Failed to fetch Medium feed:", err);
+          if (loadingEl) loadingEl.innerText = "Failed to load Medium articles.";
+        }
+      }
+
+      // small helper to escape HTML strings to avoid injection
+      function escapeHtml(unsafe) {
+        if (!unsafe) return "";
+        return unsafe
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
+      }
+
+      loadMediumArticles();
+    </script>
   </body>
 </html>
