@@ -865,6 +865,23 @@
       </div>
     </section>
 
+     <section id="articles" class="max-w-7xl mx-auto px-6 py-16">
+      <h3
+        class="text-3xl font-bold text-center mb-12 bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent"
+      >
+        Articles
+      </h3>
+
+      <div id="medium-articles" class="grid md:grid-cols-3 gap-8"></div>
+
+      <p
+        id="article-loading"
+        class="text-center text-gray-300 mt-6 animate-pulse"
+      >
+        Loading articles...
+      </p>
+    </section>
+    
     <!-- Contact Section -->
     <section id="contact" class="max-w-7xl mx-auto px-4 py-10">
       <h3
@@ -961,6 +978,40 @@
       &copy; 2025 Tita Rismawati. All Rights Reserved.
     </footer>
 
+
+    <script>
+      const mediumUsername = "YOUR_MEDIUM_USERNAME"; // ganti dengan username kamu
+      const rssUrl = `https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@${mediumUsername}`;
+
+      fetch(rssUrl)
+        .then((response) => response.json())
+        .then((data) => {
+          const container = document.getElementById("medium-articles");
+          const loading = document.getElementById("article-loading");
+          loading.style.display = "none";
+
+          data.items.slice(0, 6).forEach((article) => {
+            const card = document.createElement("div");
+            card.className =
+              "bg-white/10 backdrop-blur rounded-xl overflow-hidden shadow-lg hover:scale-105 transition";
+
+            card.innerHTML = `
+              <img src="${article.thumbnail}" class="w-full h-48 object-cover" />
+              <div class="p-6">
+                <h4 class="text-xl font-semibold mb-2">${article.title}</h4>
+                <p class="text-gray-300 mb-4">${article.pubDate.substring(0,10)}</p>
+                <a href="${article.link}" target="_blank" class="text-pink-400 font-semibold hover:underline">Read More →</a>
+              </div>
+            `;
+
+            container.appendChild(card);
+          });
+        })
+        .catch((error) => {
+          document.getElementById("article-loading").innerText =
+            "Failed to load Medium articles.";
+        });
+    </script>
     <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
@@ -976,4 +1027,5 @@
     </script>
   </body>
 </html>
+
 
