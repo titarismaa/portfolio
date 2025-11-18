@@ -866,20 +866,21 @@
     </section>
 
      <section id="articles" class="max-w-7xl mx-auto px-6 py-16">
-      <h3
-        class="text-3xl font-bold text-center mb-12 bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent"
-      >
-        Articles
-      </h3>
+     <h1 class="text-center text-4xl font-bold mb-10">
+        My Medium Articles
+    </h1>
 
-      <div id="medium-articles" class="grid md:grid-cols-3 gap-8"></div>
-
-      <p
-        id="article-loading"
-        class="text-center text-gray-300 mt-6 animate-pulse"
-      >
+    <div id="loading" class="text-center text-lg text-gray-600 mb-6">
         Loading articles...
-      </p>
+    </div>
+
+    <div id="articles" class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-6"></div>
+
+    <a id="seeAllBtn" 
+       class="hidden mx-auto mt-12 block w-60 text-center bg-black text-white py-3 rounded-lg text-lg font-semibold hover:opacity-80 transition"
+       target="_blank">
+       See all on Medium →
+    </a>
     </section>
     
     <!-- Contact Section -->
@@ -980,38 +981,83 @@
 
 
     <script>
-      const mediumUsername = "titarisma";
-      const rssUrl = `https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@${mediumUsername}`;
+    async function loadMediumArticles() {
+        const username = "@titarisma";  
+        const MAX_ARTICLES = 6;            
 
-      fetch(rssUrl)
-        .then((response) => response.json())
-        .then((data) => {
-          const container = document.getElementById("medium-articles");
-          const loading = document.getElementById("article-loading");
-          loading.style.display = "none";
+        const rss_url = `https://medium.com/feed/${username}`;
 
-          data.items.slice(0, 6).forEach((article) => {
-            const card = document.createElement("div");
-            card.className =
-              "bg-white/10 backdrop-blur rounded-xl overflow-hidden shadow-lg hover:scale-105 transition";
+        try {
+            const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(rss_url)}`);
+            const data = await response.json();
 
-            card.innerHTML = `
-              <img src="${article.thumbnail}" class="w-full h-48 object-cover" />
-              <div class="p-6">
-                <h4 class="text-xl font-semibold mb-2">${article.title}</h4>
-                <p class="text-gray-300 mb-4">${article.pubDate.substring(0,10)}</p>
-                <a href="${article.link}" target="_blank" class="text-pink-400 font-semibold hover:underline">Read More →</a>
-              </div>
-            `;
+            const parser = new DOMParser();
+            const xml = parser.parseFromString(data.contents, "text/xml");
+            const items = xml.querySelectorAll("item");
 
-            container.appendChild(card);
-          });
-        })
-        .catch((error) => {
-          document.getElementById("article-loading").innerText =
-            "Failed to load Medium articles.";
-        });
-    </script>
+            const container = document.getElementById("articles");
+            const loading = document.getElementById("loading");
+            loading.style.display = "none";
+
+            let count = 0;
+
+            items.forEach(item => {
+                if (count >= MAX_ARTICLES) return;
+
+                const title = item.querySelector("title").textContent;
+                const link = item.querySelector("link").textContent;
+                const description = item.querySelector("description").textContent;
+
+                const htmlParser = new DOMParser();
+                const descHTML = htmlParser.parseFromString(description, "text/html");
+
+                let imageUrl = "";
+                const imgTag = descHTML.querySelector("img");
+
+                if (imgTag) {
+                    imageUrl = imgTag.src;
+                } else {
+                    imageUrl = "https://via.placeholder.com/800x400?text=No+Image";
+                }
+
+                const cleanDesc = descHTML.body.textContent.trim().substring(0, 150) + "...";
+
+                const card = document.createElement("div");
+                card.className = 
+                    "bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition";
+
+                card.innerHTML = `
+                    <img src="${imageUrl}" class="w-full h-48 object-cover bg-gray-200" />
+
+                    <div class="p-5">
+                        <h2 class="text-xl font-semibold mb-2">${title}</h2>
+                        <p class="text-gray-600 leading-relaxed">${cleanDesc}</p>
+                        <a href="${link}" target="_blank"
+                           class="inline-block mt-4 text-blue-600 font-semibold hover:underline">
+                           Read more →
+                        </a>
+                    </div>
+                `;
+
+                container.appendChild(card);
+                count++;
+            });
+
+            // Jika artikel lebih dari MAX_ARTICLES → tampilkan tombol Medium
+            if (items.length > MAX_ARTICLES) {
+                const btn = document.getElementById("seeAllBtn");
+                btn.href = `https://medium.com/${username}`;
+                btn.classList.remove("hidden");
+            }
+
+        } catch (error) {
+            document.getElementById("loading").innerText = "Failed to load Medium articles.";
+            console.error("RSS error:", error);
+        }
+    }
+
+    loadMediumArticles();
+</script>
     <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
@@ -1027,6 +1073,7 @@
     </script>
   </body>
 </html>
+
 
 
 
